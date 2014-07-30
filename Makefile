@@ -16,11 +16,9 @@ SERVICE_TPAGE_ARGS = --define kb_top=$(TARGET) --define kb_runtime=$(KB_RUNTIME)
 # else or if you are not using the standard .t suffix
 CLIENT_TESTS_PYTHON = $(wildcard client-tests/*.py)
 SCRIPT_TESTS = $(wildcard script-tests/*.py)
+CLIENT_TESTS = $(wildcard t/*.t)
 
 default: all
-	-mkdir -p lib/Bio/KBase/Workflow/$(MODULE)                                                                       
-	#-cp awf/*.awf lib/Bio/KBase/Workflow/$(MODULE)
-
 
 all: compile-typespec
 
@@ -60,6 +58,14 @@ test-client:
 				exit 1 ; \
 			fi \
 		fi \
+	done
+	for t in $(CLIENT_TESTS) ; do \
+	        if [ -f $$t ] ; then \
+	                $(DEPLOY_RUNTIME)/bin/perl $$t ; \
+	                if [ $$? -ne 0 ] ; then \
+	                        exit 1 ; \
+	                fi \
+	        fi \
 	done
 
 # Deployment
