@@ -1,0 +1,9 @@
+Overview
+===
+This service allows user to do genome wide association analysis in KBase. The functionality for this service is available through narrative.
+
+VERSION: 0.1.0 (Released 07/30/2014)
+===
+1. Integration with production AWE
+2. Works with emmax
+
