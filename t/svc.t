@@ -25,9 +25,12 @@ print "Change gwas service url below or make it to localhost:7086\n";
 
 
 
-
-my $gc = Bio::KBase::GWAS::Client->new("http://140.221.85.182:7086");
+my $gc = Bio::KBase::GWAS::Client->new("http://localhost:7086");
 ok( defined $gc, "Check if the server is working" );
+
+
+
+
 
 `ws-delete kbasetest:pdemo/atpopvar1.filtered`;
 $job_id = $gc->prepare_variation({ws_id => $ws_id, inobj_id => 'atpopvar1', outobj_id => 'atpopvar1.filtered', minor_allele_frequency => "0.05", comment => 'test'});
