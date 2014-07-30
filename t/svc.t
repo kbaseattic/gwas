@@ -6,7 +6,6 @@ use Test::Cmd;
 use JSON;
 use Bio::KBase::AuthToken;
 use Config::Simple;
-my $awe_url="http://localhost:7080";
 my $ws_id="kbasetest:pdemo";
 my $token  = $ENV{KB_AUTH_TOKEN};
 if (!$token){
