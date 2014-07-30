@@ -1,6 +1,6 @@
 TOP_DIR = ../..
 DEPLOY_RUNTIME=/kb/runtime
-export TARGET=/kb/deployment
+TARGET ?= /kb/deployment
 include $(TOP_DIR)/tools/Makefile.common
 
 SERVICE_SPEC = GWAS.spec
