@@ -1,6 +1,6 @@
 use strict;
 use Bio::KBase::GWAS::Client;
-use Test::More tests => 12;
+use Test::More tests => 10;
 use Data::Dumper;
 use Test::Cmd;
 use JSON;
