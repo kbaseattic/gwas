@@ -67,7 +67,8 @@ foreach my $obs (@$obs_units_data){
 
 close (TFAM);
 
-$cmd = "$emmax_kin -v -s -d 10 -o out.IBS.kinf out";
+#$cmd = "$emmax_kin -v -s -d 10 -o out.IBS.kinf out"; # icc version
+$cmd = "$emmax_kin -v -s -d 10 out"; # gcc version
 `$cmd`; #output is out.IBS.kinf
 
 
