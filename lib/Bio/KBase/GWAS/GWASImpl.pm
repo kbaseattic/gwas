@@ -238,10 +238,10 @@ $job_id is a reference to a list where each element is a string
 RunGWASParams is a reference to a hash where the following keys are defined:
 	ws_id has a value which is a string
 	variation_id has a value which is a string
+	trait_id has a value which is a string
+	kinship_id has a value which is a string
 	out_id has a value which is a string
-	num2snps has a value which is a string
-	pmin has a value which is a string
-	distance has a value which is a string
+	method has a value which is a string
 	comment has a value which is a string
 
 </pre>
@@ -255,10 +255,10 @@ $job_id is a reference to a list where each element is a string
 RunGWASParams is a reference to a hash where the following keys are defined:
 	ws_id has a value which is a string
 	variation_id has a value which is a string
+	trait_id has a value which is a string
+	kinship_id has a value which is a string
 	out_id has a value which is a string
-	num2snps has a value which is a string
-	pmin has a value which is a string
-	distance has a value which is a string
+	method has a value which is a string
 	comment has a value which is a string
 
 
@@ -317,9 +317,9 @@ sub run_gwas
 =begin html
 
 <pre>
-$args is a RunGWASParams
-$status is a string
-RunGWASParams is a reference to a hash where the following keys are defined:
+$args is a Variations2GenesParams
+$status is a reference to a list where each element is a string
+Variations2GenesParams is a reference to a hash where the following keys are defined:
 	ws_id has a value which is a string
 	variation_id has a value which is a string
 	out_id has a value which is a string
@@ -334,9 +334,9 @@ RunGWASParams is a reference to a hash where the following keys are defined:
 
 =begin text
 
-$args is a RunGWASParams
-$status is a string
-RunGWASParams is a reference to a hash where the following keys are defined:
+$args is a Variations2GenesParams
+$status is a reference to a list where each element is a string
+Variations2GenesParams is a reference to a hash where the following keys are defined:
 	ws_id has a value which is a string
 	variation_id has a value which is a string
 	out_id has a value which is a string
@@ -377,11 +377,87 @@ sub variations_to_genes
     $status = Bio::KBase::Workflow::KBW::run_sync($self, $ctx, $args);
     #END variations_to_genes
     my @_bad_returns;
-    (!ref($status)) or push(@_bad_returns, "Invalid type for return variable \"status\" (value was \"$status\")");
+    (ref($status) eq 'ARRAY') or push(@_bad_returns, "Invalid type for return variable \"status\" (value was \"$status\")");
     if (@_bad_returns) {
 	my $msg = "Invalid returns passed to variations_to_genes:\n" . join("", map { "\t$_\n" } @_bad_returns);
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
 							       method_name => 'variations_to_genes');
+    }
+    return($status);
+}
+
+
+
+
+=head2 genelist_to_networks
+
+  $status = $obj->genelist_to_networks($args)
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$args is a GeneList2NetworksParams
+$status is a reference to a list where each element is a string
+GeneList2NetworksParams is a reference to a hash where the following keys are defined:
+	ws_id has a value which is a string
+	inobj_id has a value which is a string
+	outobj_id has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+$args is a GeneList2NetworksParams
+$status is a reference to a list where each element is a string
+GeneList2NetworksParams is a reference to a hash where the following keys are defined:
+	ws_id has a value which is a string
+	inobj_id has a value which is a string
+	outobj_id has a value which is a string
+
+
+=end text
+
+
+
+=item Description
+
+gwas_variations_to_genes gets genes close to the SNPs
+
+=back
+
+=cut
+
+sub genelist_to_networks
+{
+    my $self = shift;
+    my($args) = @_;
+
+    my @_bad_arguments;
+    (ref($args) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument \"args\" (value was \"$args\")");
+    if (@_bad_arguments) {
+	my $msg = "Invalid arguments passed to genelist_to_networks:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+							       method_name => 'genelist_to_networks');
+    }
+
+    my $ctx = $Bio::KBase::GWAS::Service::CallContext;
+    my($status);
+    #BEGIN genelist_to_networks
+    $status = Bio::KBase::Workflow::KBW::run_sync($self, $ctx, $args);
+
+    #END genelist_to_networks
+    my @_bad_returns;
+    (ref($status) eq 'ARRAY') or push(@_bad_returns, "Invalid type for return variable \"status\" (value was \"$status\")");
+    if (@_bad_returns) {
+	my $msg = "Invalid returns passed to genelist_to_networks:\n" . join("", map { "\t$_\n" } @_bad_returns);
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+							       method_name => 'genelist_to_networks');
     }
     return($status);
 }
@@ -550,7 +626,7 @@ comment has a value which is a string
 
 
 
-=head2 RunGWASParams
+=head2 Variations2GenesParams
 
 =over 4
 
@@ -584,6 +660,45 @@ num2snps has a value which is a string
 pmin has a value which is a string
 distance has a value which is a string
 comment has a value which is a string
+
+
+=end text
+
+=back
+
+
+
+=head2 GeneList2NetworksParams
+
+=over 4
+
+
+
+=item Description
+
+inobj_id is the list of kb feature ids comma separated
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+ws_id has a value which is a string
+inobj_id has a value which is a string
+outobj_id has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+ws_id has a value which is a string
+inobj_id has a value which is a string
+outobj_id has a value which is a string
 
 
 =end text

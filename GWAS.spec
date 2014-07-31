@@ -54,9 +54,18 @@ module GWAS
 		string pmin;
 		string distance;
 		string comment; 
-         } RunGWASParams;
+         } Variations2GenesParams;
 
 	/*gwas_variations_to_genes gets genes close to the SNPs */
-	funcdef variations_to_genes (RunGWASParams args) returns (string status);
+	funcdef variations_to_genes (Variations2GenesParams args) returns (list<string> status);
 
+        /* inobj_id is the list of kb feature ids comma separated */
+	typedef structure {
+		string ws_id;
+		string inobj_id;
+		string outobj_id;
+         } GeneList2NetworksParams;
+
+	/*gwas_variations_to_genes gets genes close to the SNPs */
+	funcdef genelist_to_networks (GeneList2NetworksParams args) returns (list<string> status);
 };
