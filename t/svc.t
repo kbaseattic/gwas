@@ -13,8 +13,6 @@ my $to = Bio::KBase::AuthToken->new();
 $token = $to->{token};
 }
 
-#`ws-delete kbasetest:pdemo/atpopvar1.filtered.kinship`;
-
 
 my $job_id;
 
@@ -64,11 +62,7 @@ ok ($x==1, "variations_to_genes creates FLC.genelist object in kbasetest:pdemo\n
 
 `ws-delete kbasetest:pdemo/FLC.network`;
 $job_id = $gc->genelist_to_networks({ws_id => $ws_id, inobj_id => 'FLC.genelist',outobj_id => 'FLC.network'});
-print to_json ($job_id);
-exit;
-ok(ref($job_id) eq "ARRAY","genelist_to_networks returns an array");
-ok(@{$job_id} eq 2, "returns two job ids for genelist_to_networks");
- my $x = check_object ("kbasetest:pdemo/FLC.network");
+my $x = check_object ("kbasetest:pdemo/FLC.network");
 ok ($x==1, "genelist_to_networks creates FLC.network object in kbasetest:pdemo\n");
 
 
