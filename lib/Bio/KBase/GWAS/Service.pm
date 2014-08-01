@@ -22,6 +22,7 @@ our %return_counts = (
         'run_gwas' => 1,
         'variations_to_genes' => 1,
         'genelist_to_networks' => 1,
+        'gwas_genelist_to_networks' => 1,
         'version' => 1,
 );
 
@@ -31,6 +32,7 @@ our %method_authentication = (
         'run_gwas' => 'required',
         'variations_to_genes' => 'required',
         'genelist_to_networks' => 'required',
+        'gwas_genelist_to_networks' => 'required',
 );
 
 
@@ -43,6 +45,7 @@ sub _build_valid_methods
         'run_gwas' => 1,
         'variations_to_genes' => 1,
         'genelist_to_networks' => 1,
+        'gwas_genelist_to_networks' => 1,
         'version' => 1,
     };
     return $methods;

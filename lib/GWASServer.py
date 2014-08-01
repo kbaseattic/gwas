@@ -249,6 +249,10 @@ class Application(object):
                              name='GWAS.genelist_to_networks',
                              types=[dict])
         self.method_authentication['GWAS.genelist_to_networks'] = 'required'
+        self.rpc_service.add(impl_GWAS.gwas_genelist_to_networks,
+                             name='GWAS.gwas_genelist_to_networks',
+                             types=[dict])
+        self.method_authentication['GWAS.gwas_genelist_to_networks'] = 'required'
         self.auth_client = biokbase.nexus.Client(
             config={'server': 'nexus.api.globusonline.org',
                     'verify_ssl': False,

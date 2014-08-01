@@ -66,6 +66,9 @@ module GWAS
 		string outobj_id;
          } GeneList2NetworksParams;
 
-	/*gwas_variations_to_genes gets genes close to the SNPs */
+	/* list of genes to Network */
 	funcdef genelist_to_networks (GeneList2NetworksParams args) returns (list<string> status);
+
+	/* KBaseGwasData.GeneList to Network */
+	funcdef gwas_genelist_to_networks (GeneList2NetworksParams args) returns (list<string> status);
 };

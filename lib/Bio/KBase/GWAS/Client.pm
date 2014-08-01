@@ -486,7 +486,7 @@ GeneList2NetworksParams is a reference to a hash where the following keys are de
 
 =item Description
 
-gwas_variations_to_genes gets genes close to the SNPs
+list of genes to Network
 
 =back
 
@@ -539,6 +539,95 @@ sub genelist_to_networks
 
 
 
+=head2 gwas_genelist_to_networks
+
+  $status = $obj->gwas_genelist_to_networks($args)
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$args is a GeneList2NetworksParams
+$status is a reference to a list where each element is a string
+GeneList2NetworksParams is a reference to a hash where the following keys are defined:
+	ws_id has a value which is a string
+	inobj_id has a value which is a string
+	outobj_id has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+$args is a GeneList2NetworksParams
+$status is a reference to a list where each element is a string
+GeneList2NetworksParams is a reference to a hash where the following keys are defined:
+	ws_id has a value which is a string
+	inobj_id has a value which is a string
+	outobj_id has a value which is a string
+
+
+=end text
+
+=item Description
+
+KBaseGwasData.GeneList to Network
+
+=back
+
+=cut
+
+sub gwas_genelist_to_networks
+{
+    my($self, @args) = @_;
+
+# Authentication: required
+
+    if ((my $n = @args) != 1)
+    {
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
+							       "Invalid argument count for function gwas_genelist_to_networks (received $n, expecting 1)");
+    }
+    {
+	my($args) = @args;
+
+	my @_bad_arguments;
+        (ref($args) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"args\" (value was \"$args\")");
+        if (@_bad_arguments) {
+	    my $msg = "Invalid arguments passed to gwas_genelist_to_networks:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+								   method_name => 'gwas_genelist_to_networks');
+	}
+    }
+
+    my $result = $self->{client}->call($self->{url}, {
+	method => "GWAS.gwas_genelist_to_networks",
+	params => \@args,
+    });
+    if ($result) {
+	if ($result->is_error) {
+	    Bio::KBase::Exceptions::JSONRPC->throw(error => $result->error_message,
+					       code => $result->content->{error}->{code},
+					       method_name => 'gwas_genelist_to_networks',
+					       data => $result->content->{error}->{error} # JSON::RPC::ReturnObject only supports JSONRPC 1.1 or 1.O
+					      );
+	} else {
+	    return wantarray ? @{$result->result} : $result->result->[0];
+	}
+    } else {
+        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method gwas_genelist_to_networks",
+					    status_line => $self->{client}->status_line,
+					    method_name => 'gwas_genelist_to_networks',
+				       );
+    }
+}
+
+
+
 sub version {
     my ($self) = @_;
     my $result = $self->{client}->call($self->{url}, {
@@ -550,16 +639,16 @@ sub version {
             Bio::KBase::Exceptions::JSONRPC->throw(
                 error => $result->error_message,
                 code => $result->content->{code},
-                method_name => 'genelist_to_networks',
+                method_name => 'gwas_genelist_to_networks',
             );
         } else {
             return wantarray ? @{$result->result} : $result->result->[0];
         }
     } else {
         Bio::KBase::Exceptions::HTTP->throw(
-            error => "Error invoking method genelist_to_networks",
+            error => "Error invoking method gwas_genelist_to_networks",
             status_line => $self->{client}->status_line,
-            method_name => 'genelist_to_networks',
+            method_name => 'gwas_genelist_to_networks',
         );
     }
 }

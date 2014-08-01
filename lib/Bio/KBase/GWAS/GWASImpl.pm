@@ -427,7 +427,7 @@ GeneList2NetworksParams is a reference to a hash where the following keys are de
 
 =item Description
 
-gwas_variations_to_genes gets genes close to the SNPs
+list of genes to Network
 
 =back
 
@@ -458,6 +458,81 @@ sub genelist_to_networks
 	my $msg = "Invalid returns passed to genelist_to_networks:\n" . join("", map { "\t$_\n" } @_bad_returns);
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
 							       method_name => 'genelist_to_networks');
+    }
+    return($status);
+}
+
+
+
+
+=head2 gwas_genelist_to_networks
+
+  $status = $obj->gwas_genelist_to_networks($args)
+
+=over 4
+
+=item Parameter and return types
+
+=begin html
+
+<pre>
+$args is a GeneList2NetworksParams
+$status is a reference to a list where each element is a string
+GeneList2NetworksParams is a reference to a hash where the following keys are defined:
+	ws_id has a value which is a string
+	inobj_id has a value which is a string
+	outobj_id has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+$args is a GeneList2NetworksParams
+$status is a reference to a list where each element is a string
+GeneList2NetworksParams is a reference to a hash where the following keys are defined:
+	ws_id has a value which is a string
+	inobj_id has a value which is a string
+	outobj_id has a value which is a string
+
+
+=end text
+
+
+
+=item Description
+
+KBaseGwasData.GeneList to Network
+
+=back
+
+=cut
+
+sub gwas_genelist_to_networks
+{
+    my $self = shift;
+    my($args) = @_;
+
+    my @_bad_arguments;
+    (ref($args) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument \"args\" (value was \"$args\")");
+    if (@_bad_arguments) {
+	my $msg = "Invalid arguments passed to gwas_genelist_to_networks:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+							       method_name => 'gwas_genelist_to_networks');
+    }
+
+    my $ctx = $Bio::KBase::GWAS::Service::CallContext;
+    my($status);
+    #BEGIN gwas_genelist_to_networks
+    $status = Bio::KBase::Workflow::KBW::run_sync($self, $ctx, $args);
+    #END gwas_genelist_to_networks
+    my @_bad_returns;
+    (ref($status) eq 'ARRAY') or push(@_bad_returns, "Invalid type for return variable \"status\" (value was \"$status\")");
+    if (@_bad_returns) {
+	my $msg = "Invalid returns passed to gwas_genelist_to_networks:\n" . join("", map { "\t$_\n" } @_bad_returns);
+	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+							       method_name => 'gwas_genelist_to_networks');
     }
     return($status);
 }

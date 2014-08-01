@@ -91,3 +91,16 @@ class GWAS:
                              'status is not type list as required.')
         # return the results
         return [status]
+
+    def gwas_genelist_to_networks(self, args):
+        # self.ctx is set by the wsgi application class
+        # return variables are: status
+        #BEGIN gwas_genelist_to_networks
+        #END gwas_genelist_to_networks
+
+        #At some point might do deeper type checking...
+        if not isinstance(status, list):
+            raise ValueError('Method gwas_genelist_to_networks return value ' +
+                             'status is not type list as required.')
+        # return the results
+        return [status]
