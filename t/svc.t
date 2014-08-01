@@ -1,6 +1,6 @@
 use strict;
 use Bio::KBase::GWAS::Client;
-use Test::More tests => 10;
+use Test::More tests => 12;
 use Data::Dumper;
 use Test::Cmd;
 use JSON;
@@ -28,7 +28,6 @@ ok( defined $gc, "Check if the server is working" );
 
 
 
-=comment
 
 `ws-delete kbasetest:pdemo/atpopvar1.filtered`;
 $job_id = $gc->prepare_variation({ws_id => $ws_id, inobj_id => 'atpopvar1', outobj_id => 'atpopvar1.filtered', minor_allele_frequency => "0.05", comment => 'test'});
@@ -59,7 +58,6 @@ $job_id= $gc->variations_to_genes({ws_id => $ws_id, variation_id => 'FLC.topvari
  my $x = check_object ("kbasetest:pdemo/FLC.genelist");
 ok ($x==1, "variations_to_genes creates FLC.genelist object in kbasetest:pdemo\n");
 
-=cut
 `ws-delete kbasetest:pdemo/FLC.network`;
 $job_id = $gc->genelist_to_networks({ws_id => $ws_id, inobj_id => 'FLC.genelist',outobj_id => 'FLC.network'});
 my $x = check_object ("kbasetest:pdemo/FLC.network");
