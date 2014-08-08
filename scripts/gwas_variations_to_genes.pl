@@ -70,7 +70,7 @@ my @results2;
 
 my $count=0;
 
-open (FILEX, ">tmp.txt") or die ("nnc");
+open (FILEX, ">$$.tmp.txt") or die ("nnc");
 
 foreach my $snp_array(@$variations){
   my($index, $position, $pvalue, $snp_id) = @$snp_array;
@@ -80,7 +80,7 @@ foreach my $snp_array(@$variations){
 }
 close (FILEX);
 
-my $cmd =`sort -r  -gk3,3 tmp.txt |head -n $numtopsnps `;
+my $cmd =`sort -r  -gk3,3 $$.tmp.txt |head -n $numtopsnps `;
 my @variations = split ("\n", $cmd);
 foreach my $snp_array(@variations)
 {
