@@ -10,3 +10,4 @@ export KB_SERVICE_DIR=$KB_TOP/services/[% kb_service_name %]
 pid_file=$KB_SERVICE_DIR/service.pid
 
 exec $KB_RUNTIME/bin/starman --listen :[% kb_service_port %] --error-log $KB_SERVICE_DIR/error.log --daemonize --pid $pid_file $KB_TOP/lib/[% kb_service_name %].psgi
+ 
