@@ -1,4 +1,4 @@
-TOP_DIR = ../..
+TOP_DIR = ../.. 
 DEPLOY_RUNTIME=/kb/runtime
 TARGET ?= /kb/deployment
 include $(TOP_DIR)/tools/Makefile.common
