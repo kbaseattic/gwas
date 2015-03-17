@@ -1,4 +1,4 @@
-TOP_DIR = ../.. 
+TOP_DIR = ../..
 DEPLOY_RUNTIME=/kb/runtime
 TARGET ?= /kb/deployment
 include $(TOP_DIR)/tools/Makefile.common
@@ -105,7 +105,7 @@ deploy-service: deploy-cfg
 	tpage $(SERVICE_TPAGE_ARGS) service/stop_service.tt > $(SERVICE_DIR)/stop_service; \
 	chmod +x $(SERVICE_DIR)/stop_service; \
 	tpage $(SERVICE_TPAGE_ARGS) service/process.tt > $(SERVICE_DIR)/process.$(SERVICE_NAME); \
-	chmod +x $(SERVICE_DIR)/process.$(SERVICE_NAME); 
+	chmod +x $(SERVICE_DIR)/process.$(SERVICE_NAME);
 	mkdir -p $(SERVICE_DIR)/awf
 	cat deploy.cfg service.cfg > $(SERVICE_DIR)/service.cfg;
 
