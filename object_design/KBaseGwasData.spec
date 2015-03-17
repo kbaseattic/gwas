@@ -10,7 +10,7 @@ module KBaseGwasData {
       reference genome id for mapping the fastq file
   */
 
-  typedef string genome_id;
+  typedef string genome_id; 
 
   /*
      Object for the Variation Metadata
